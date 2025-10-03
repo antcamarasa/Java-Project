@@ -14,6 +14,14 @@
 - Vérifier validité de l’input avec `guess.length()` et `guess.matches("\\d+")`.  
 👉 **Objectif** : Manipulation basique de `String` et I/O console.
 
+
+<details>
+  <summary>Voir la solution en code</summary>
+  
+    public class HelloWorld {
+    ... Code to do.
+</details> 
+
 ---
 
 ### 2. Version `char[]`

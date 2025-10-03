@@ -1,7 +1,6 @@
 # Java-Project
 
 - [Bagels](#bagels)
-- 
 - [BlackJack](#blackjack)
 
 ---

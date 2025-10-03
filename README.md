@@ -67,6 +67,7 @@
 ### 1. Mon implémentation :
  Question auxquelles j'ai été confronté pendant la résolution de mon exercices
 
+#### L'objectif est de réprésenter un jeux de cartes  
 1. Structures de données les plus utilisées en Java (équivalents Python)
 - Array → équivalent list fixe en Python (taille immuable).
 - ArrayList → équivalent list dynamique en Python.
@@ -84,6 +85,11 @@
 - Besoin de parcours dans les deux sens ?
 - Besoin de recherche rapide d’éléments ?
 
-L'objectif est de réprésenter un jeux de cartes, donc ArrayList me semble être un option adapté, l'idée de shuffle et de stocker dans une stack pour ensuité pioché des cartes me parait idéale.
+ArrayListe semble être une bonne idée de shuffle et de stocker dans une stack pour ensuité pioché des cartes me parait idéale.
 
+#### Comment représenter un couple A♥ ? 
+Il y a trois options principales en Java pour représenter ton couple (valeur, couleur) dans mon ArrayList :
+1. Créer une classe Card (la plus propre) → chaque carte est un objet avec deux champs (rank, suit).
+- Lisible, extensible, orienté objet.
+- C’est la solution classique en Java.
 

@@ -64,4 +64,26 @@
 ---
 
 ## BlackJack
-*(À définir)*
+### 1. Mon implémentation :
+ Question auxquelles j'ai été confronté pendant la résolution de mon exercices
+
+1. Structures de données les plus utilisées en Java (équivalents Python)
+- Array → équivalent list fixe en Python (taille immuable).
+- ArrayList → équivalent list dynamique en Python.
+- LinkedList → liste chaînée (ajouts/suppressions rapides).
+- HashMap → équivalent dict.
+- HashSet → équivalent set.
+- Queue / Deque → file (FIFO / LIFO).
+- Enum → proche d’un Tuple/Enum Python, utile pour catégories fixes (ex : couleurs, signes).
+
+2. Blueprint pour choisir la structure
+- Taille fixe ou variable ?
+- Ordre important ou non ?
+- Doublons autorisés ?
+- Accès rapide par index ou par clé ?
+- Besoin de parcours dans les deux sens ?
+- Besoin de recherche rapide d’éléments ?
+
+L'objectif est de réprésenter un jeux de cartes, donc ArrayList me semble être un option adapté, l'idée de shuffle et de stocker dans une stack pour ensuité pioché des cartes me parait idéale.
+
+

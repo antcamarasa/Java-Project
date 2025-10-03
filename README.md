@@ -93,3 +93,60 @@ Il y a trois options principales en Java pour représenter ton couple (valeur, c
 - Lisible, extensible, orienté objet.
 - C’est la solution classique en Java.
 
+2. Utiliser un Map.Entry ou un record (Java moderne) → sorte de mini-tuple clé/valeur.
+- Rapide si tu veux juste stocker deux valeurs groupées.
+- Moins expressif qu’une vraie classe.
+
+3. Stocker un String formaté genre "A♥" → simple mais pas flexible.
+- Suffisant si c’est uniquement pour affichage.
+- Pas pratique pour manipuler les données.
+
+Je choisis la troisième options.
+
+#### Comment tester efficacement que my_list<String> == expected_list<String> ou chaque liste répresente mes 52 cartes
+
+Ma solution naïve :
+         
+         @Test
+        public void testGenerateCardDeck(){
+        /*
+            1. Créer un tableau fixe de 52 cartes de String
+            2. Récupérer le resultat du retour de ma fonction generateCardDeck
+            3. Itérer sur touts les élément de mon arrayList et supprimer des que l'lément est trouvé.
+            4. si l'arrayList est vide return True else False
+         */
+
+        List<String> expectedList = new ArrayList<>(Arrays.asList(
+                "♥A", "♥2", "♥3", "♥4", "♥5", "♥6", "♥7", "♥8", "♥9", "♥X", "♥J", "♥Q", "♥K",
+                "♦A", "♦2", "♦3", "♦4", "♦5", "♦6", "♦7", "♦8", "♦9", "♦X", "♦J", "♦Q", "♦K",
+                "♠A", "♠2", "♠3", "♠4", "♠5", "♠6", "♠7", "♠8", "♠9", "♠X", "♠J", "♠Q", "♠K",
+                "♣A", "♣2", "♣3", "♣4", "♣5", "♣6", "♣7", "♣8", "♣9", "♣X", "♣J", "♣Q", "♣K"
+        ));
+
+        List<String> outputList = blackJack.generateCardDeck();
+
+
+        for(int i = 0; i < expectedList.size(); i++){
+            for (int j =  outputList.size() - 1; j >= 0; j--){
+                if(expectedList.get(i).equals(outputList.get(j))){
+                    outputList.remove(j);
+                }
+            }
+        }
+        Assertions.assertTrue(outputList.isEmpty());
+    }
+
+Point positif : 
+- Boucles imbriquées peu lisibles et coûteuses (O(n²)).
+- Tu compares à sens unique (expected → output) : pas sûr que expected soit vide aussi.
+- Test fragile : trop dépendant de la représentation exacte des Strings.
+
+Options plus adapté :
+- Comparer deux Set → transforme tes deux listes en Set et compare l’égalité.
+  - Avantage : ignore l’ordre, élimine les doublons, test concis.
+
+- Comparer deux listes triées → trie les deux puis vérifie l’égalité.
+  - Avantage : simple et robuste si ordre non garanti.
+
+- Utiliser des assertions de collections (librairies type JUnit/AssertJ/Hamcrest).
+ - Avantage : lisible, expressif, directement pensé pour tester des collections.

@@ -87,7 +87,7 @@
 
 ArrayListe semble être une bonne idée de shuffle et de stocker dans une stack pour ensuité pioché des cartes me parait idéale.
 
-#### Comment représenter un couple A♥ ? 
+### Comment représenter un couple A♥ ? 
 Il y a trois options principales en Java pour représenter ton couple (valeur, couleur) dans mon ArrayList :
 1. Créer une classe Card (la plus propre) → chaque carte est un objet avec deux champs (rank, suit).
 - Lisible, extensible, orienté objet.
@@ -150,3 +150,46 @@ Options plus adapté :
 
 - Utiliser des assertions de collections (librairies type JUnit/AssertJ/Hamcrest).
  - Avantage : lisible, expressif, directement pensé pour tester des collections.
+
+Ici, on choisit la première option, utilisation d'un set (hashSet en java). 
+
+Rappel rapide des Set :
+- Pas de doublons : chaque élément est unique.
+- Pas d’ordre garanti
+- Accès rapide (en général O(1) avec HashSet).
+- Permet les opérations ensemblistes : union, intersection, différence via méthodes (addAll, retainAll, removeAll).
+- Basé sur equals() et hashCode() pour vérifier l’unicité des éléments (un cours complet sur le sujet a faire)
+
+Comme un set, supprime les doublons pour être sur que mon teste est fonctionnel, je vais vérifier la taille de outputList avant de le transformer en set(). 
+Si taille égale ainsi que les deux set sont identiques alors on a bien un jeu de 52 cartes complet.
+
+
+#### Implémentation de getHand() fonction qui permet de tiré des cartes ?
+Afin de pouvoir simuler une pile de carte quoi de mieux que d'utiliser une stack ? Rien. Du coup on utilise une stack. 
+On va donc transformer dans notre retour de fonction generateCartDeck un cast vers une Dequeu(interface qui implémente les stacks en java) voici comment :
+
+    Deque<String> deck = new ArrayDeque<>(blackJack.generateCardDeck());
+
+Ensuite notre méthode getHand prendra en paramètre une stack et donc on n'a plus qui simuler la pioche avec un stack.pop().
+
+
+#### ArrayList vs List | Deque vs ArrayDequeue
+
+1. Différence entre List<String> hand = new ArrayList<>(); et ArrayList<String> hand = new ArrayList<>();
+- List est une interface → un contrat qui dit “cette structure se comporte comme une liste” (méthodes : add, get, size…).
+- ArrayList est une implémentation concrète → la version qui utilise un tableau dynamique derrière.
+
+👉 Quand tu écris :
+
+- ArrayList<String> hand = new ArrayList<>(); → tu dis “ma variable est exactement une ArrayList”.
+- List<String> hand = new ArrayList<>(); → tu dis “ma variable est une Liste (n’importe laquelle), et là je choisis ArrayList comme implémentation”.
+
+⚡ Bonne pratique en Java = coder au plus proche de l’interface (List, Deque, Set…), pas pour une implémentation précise. Ça rend ton code plus flexible.
+
+2. Idem pour Deque et ArrayDeque.
+
+Question intéressante, en argument d'une fonction on doit passer l'interface ou l'implémentation ?
+
+👉 Toujours l’interface (Deque<String>) dans la signature.
+- Ça rend ta fonction indépendante de l’implémentation (ArrayDeque, LinkedList, …).
+- Tu peux changer l’implémentation plus tard sans casser ton code.
